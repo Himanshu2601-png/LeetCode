@@ -1,0 +1,54 @@
+class Solution {
+    int memo [][];
+    int n;
+
+    int find(int st , int [] nums ,int target){
+        int l = st , h = n-1;
+        while(l<h){
+            int mid = l + (h-l)/2;
+            if(nums[mid]<target){
+                l = mid+1;
+            }
+            else h = mid;
+        }
+        if(l<n && nums[l]== target) return l;
+        else return -1;
+
+    }
+    int solve(int i , int inc , int[] nums){
+         if (memo[i][inc] != -1) {
+            return memo[i][inc];
+        }
+        int currVal = nums[i]+inc;
+        int len=1;
+
+        int j = find(i+1 ,nums , currVal+1);
+        if(j!=-1){
+            len = Math.max(len ,1+ solve(j , 0 , nums));
+        }
+
+
+         j = find(i+1 , nums , currVal);
+
+          if(j!=-1){
+            len = Math.max(len , 1+solve(j , 1 , nums));
+        }
+
+        return memo[i][inc]=len;
+
+
+    }
+    public int maxSelectedElements(int[] nums) {
+         n = nums.length;
+        Arrays.sort(nums);
+        int res=1;
+        memo = new int[n+1][2];
+        for(int i [] : memo){
+            Arrays.fill(i , -1);
+        }
+        for(int i=0;i<n;i++){
+            res = Math.max(res ,Math.max(solve(i , 0 , nums) , solve(i ,1,nums)));
+        }
+        return res;
+    }
+}
