@@ -1,0 +1,15 @@
+class Solution {
+    public boolean armstrongNumber(int n) {
+        // code here
+        int org = n;
+        int sum=0;
+        String s =""+n;
+        int size=s.length();
+        while(n>0){
+            int rem = n%10;
+            sum+=(Math.pow(rem , size));
+            n/=10;
+        }
+        return org == sum;
+    }
+}
