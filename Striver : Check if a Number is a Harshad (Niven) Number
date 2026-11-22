@@ -1,0 +1,15 @@
+class Solution {
+    public boolean isHarshad(int n) {
+        // Your code goes here
+        int org = n;
+        int sum=0;
+        while(n>0){
+            int rem = n%10;
+            sum+=rem;
+            n/=10;
+        }
+
+        if(org %sum ==0) return true;
+        return false;
+    }
+}
