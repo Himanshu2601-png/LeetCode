@@ -1,0 +1,32 @@
+class Solution {
+    int gcd(int a ,int b){
+        while(a>0 && b>0){
+            if(a>b) a = a%b;
+            else b = b%a;
+        }
+        if(a == 0) return b;
+        return a;
+    }
+    public int maxLength(int[] nums) {
+        int len=0;
+        int n = nums.length;
+        for(int i=0;i<n;i++){
+            int prod = 1;
+            int l=1;
+            int g=0;
+
+            for(int j=0;j<n;j++){
+                int num = nums[j];
+                prod *=num;
+                g = gcd(g , num);
+                l = (l*num)/gcd(l , num);
+
+                if(prod == l*g) {
+                    len = Math.max(len , j-i+1);
+                }
+            }
+            
+        }
+        return len;
+    }
+}
