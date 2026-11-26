@@ -1,0 +1,25 @@
+class Solution {
+    public boolean canAliceWin(int n) {
+       if(n<10) return false;
+       boolean aliceTurn=true;
+       boolean bobTurn = false;
+       int sc=10;
+        while(n>sc){
+            if(n>sc && aliceTurn){
+                n-=sc;
+                sc--;
+                if(n<sc) return true;
+                aliceTurn=false;
+                bobTurn = true;
+            }
+            else if(n>sc && bobTurn){
+                n-=sc;
+                sc--;
+                if(n<sc) return false;
+                aliceTurn=true;
+                bobTurn = false;
+            }
+        }
+        return aliceTurn == true && bobTurn == false;
+    }
+}
